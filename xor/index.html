@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.6"></script>
+        <script>
+
+                function outputPrediction() {
+                    const model = tf.sequential();
+                    model.add(tf.layers.dense({ units: 8, inputShape: 2, activation: 'tanh'}));
+                    model.add(tf.layers.dense({units: 1, activation: 'sigmoid'}));
+                    model.compile({ optimizer: 'sgd', loss: 'binaryCrossentropy', lr: 0.1});
+        
+                    const x_train = tf.tensor2d([[0, 0], [0, 1], [1, 0], [1, 1]]);
+                    const y_train = tf.tensor2d([[0], [1], [1], [0]]);
+        
+                    model.fit(x_train, y_train, {
+                        batchSize: 1,
+                        epochs: 100
+                    });
+        
+                    model.predict(x_train).print();
+        
+                }
+                outputPrediction();
+            </script>
+    </head>
+
+    <body>
+        <div id="output"></div>
+    </body>
+    
+</html>
